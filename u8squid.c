@@ -87,7 +87,7 @@ typedef struct
 } U8;
 
 
-void U8_packdir(u8archive * arc, U8Dir dir, u32 recursion)
+u8archive * U8_packdir(u8archive * arc, U8Dir dir, u32 recursion)
 {
     u32 cnt, i, oldnumnodes;
     U8File curfile;
@@ -133,7 +133,7 @@ void U8_packdir(u8archive * arc, U8Dir dir, u32 recursion)
     for(i = 0; i < dir.dircnt; i++) //folders
     {
         curdir = dir.dirs[i];
-        U8_packdir(arc, curdir, ++recursion);
+        arc = U8_packdir(arc, curdir, ++recursion);
     }
 
     arc->nodes[oldnumnodes].size = be32(arc->numnodes + 1); //add one for root node
@@ -153,7 +153,7 @@ u8 * U8_pack(U8 input)
     arc.data = NULL;
     arc.nodes = NULL;
 
-    U8_packdir(&arc, input.rootdir, 0);
+    arc = U8_packdir(&arc, input.rootdir, 0);
 
     arc.rootnode.type = be16(0x0100);
     arc.rootnode.string_offset = 0;
