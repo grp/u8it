@@ -19,7 +19,7 @@ int main()
 	
 	stuff = *(LaichMeta_CreateDirInDirU8(&root, "arc"));
 	printf("create dir\n");
-	LaichMeta_CreateFileInDirU8(stuff, "testfile", "banner.bin");
+	LaichMeta_CreateFileInDirU8(&stuff, "testfile", "banner.bin");
 	printf("created file\n");
 	dst = LaichMeta_CompileU8(arc, &sz);
 	printf("compiled");
