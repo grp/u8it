@@ -130,12 +130,8 @@ u8node packdir (const char * whatdir, u8 root)
 
    if (dir == NULL)
    {
-      return self;
-   }
-
-   while ((dp = readdir (dir)) != NULL)
-   {
-      continue;
+      printf("Error opening directory, exiting.");
+      exit(1);
    }
 
    if(root != 1)
